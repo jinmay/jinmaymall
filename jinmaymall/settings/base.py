@@ -40,7 +40,7 @@ DEFAULT_APPS = [
 ]
 
 ADDED_APPS = [
-
+    'user.apps.UserConfig',
 ]
 
 THIRD_APPS = [
@@ -48,6 +48,8 @@ THIRD_APPS = [
 ]
 
 INSTALLED_APPS = DEFAULT_APPS + ADDED_APPS + THIRD_APPS
+
+AUTH_USER_MODEL = 'user.User'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
