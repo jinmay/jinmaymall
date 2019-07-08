@@ -41,6 +41,7 @@ DEFAULT_APPS = [
 
 ADDED_APPS = [
     'user.apps.UserConfig',
+    'accounts.apps.AccountsConfig',
 ]
 
 THIRD_APPS = [
