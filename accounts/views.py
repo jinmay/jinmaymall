@@ -23,6 +23,6 @@ login = LoginView.as_view()
 
 
 class LogoutView(LogoutView):
-    pass
+    next_page = '/'
 
 logout = LogoutView.as_view()
