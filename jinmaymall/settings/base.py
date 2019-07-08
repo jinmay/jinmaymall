@@ -137,3 +137,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'jinmaymall', 'static'),
 ]
+
+# accounts app
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'

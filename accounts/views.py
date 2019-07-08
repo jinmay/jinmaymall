@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth.views import LoginView, LogoutView
 from .forms import UserCreationForm
 
 
@@ -13,3 +14,15 @@ def signup(request):
     return render(request, 'accounts/signup.html', {
         'form': form,
     })
+
+
+class LoginView(LoginView):
+    template_name = 'accounts/login.html'
+
+login = LoginView.as_view()
+
+
+class LogoutView(LogoutView):
+    pass
+
+logout = LogoutView.as_view()
