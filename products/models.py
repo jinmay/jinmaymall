@@ -1,4 +1,7 @@
 from django.db import models
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
 
 
 class Category(models.Model):
@@ -24,3 +27,14 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
+
+    @property
+    def like_count(self):
+        return self.like.count()
+
+class Like(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return "{} - {}".format(self.user, self.product)
