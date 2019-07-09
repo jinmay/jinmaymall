@@ -2,6 +2,6 @@
 
 {% block content %}
 {% for product in product_list %}
-  {{ product.name }}
+  <p>{{ product.name }} - {{ product.price }} - {{ product.hit }}</p>
 {% endfor %}
 {% endblock content %}
