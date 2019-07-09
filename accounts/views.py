@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LoginView, LogoutView
 from .forms import UserCreationForm
 
@@ -26,3 +27,9 @@ class LogoutView(LogoutView):
     next_page = '/'
 
 logout = LogoutView.as_view()
+
+@login_required
+def mypage(request):
+    user = request.user
+    return render(request, 'accounts/mypage.html')
+    
