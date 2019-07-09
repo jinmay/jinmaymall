@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 from django.contrib.auth import get_user_model
 
 User = get_user_model()
@@ -27,6 +28,9 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse('product:product_detail', kwargs={'product_id': self.id})
 
     @property
     def like_count(self):
