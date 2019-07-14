@@ -15,6 +15,10 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
+    @property
+    def product_count(self):
+        return self.product_set.count()
+
 
 class Product(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)

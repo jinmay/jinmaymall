@@ -4,12 +4,13 @@ from .models import Category, Product, Like
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('name', 'product_count', )
 
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    readonly_fields = ["hit"]
+    readonly_fields = ("hit", )
+    list_display = ('name', 'price', 'is_active', )
 
 @admin.register(Like)
 class LikeAdmin(admin.ModelAdmin):
