@@ -19,6 +19,13 @@ class Category(models.Model):
     def product_count(self):
         return self.product_set.count()
 
+class ProductManager(models.Manager):
+    def filter_by_category(self, category_id):
+        if category_id:
+            qs = Product.objects.filter(category_id=category_id)
+        else:
+            qs = Product.objects.all()
+        return qs
 
 class Product(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
@@ -29,6 +36,8 @@ class Product(models.Model):
     hit = models.IntegerField(default=0)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+
+    objects = ProductManager()
 
     def __str__(self):
         return self.name

@@ -1,12 +1,23 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic.list import ListView
 from django.contrib.auth.decorators import login_required
-from .models import Product, Like
+from .models import Category, Product, Like
 
 
 class ProductListView(ListView):
     model = Product
     template_name = 'products/product_list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['category_list'] = Category.objects.all()
+        context['product_total_count'] = Product.objects.count()
+        return context
+
+    def get_queryset(self):
+        category_id = self.request.GET.get('category', None)
+        qs = Product.objects.filter_by_category(category_id)
+        return qs
 
 product_list = ProductListView.as_view()
 
