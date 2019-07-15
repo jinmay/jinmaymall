@@ -144,8 +144,8 @@
                     <button class="tocart" type="submit" title="Add to Cart">Add to Cart</button>
                   </div>
                   <div class="product-addto-links clearfix">
-                    <a class="wishlist" href="#"></a>
-                    <a class="compare" href="#"></a>
+                    <a class="wishlist" href="{% url 'products:toggle_like' product.id %}" {% if like %}style="background-color: #e59285; background-position: 100% center;"{% endif %}></a>
+                    <!-- <a class="compare" href="#"></a> -->
                   </div>
                 </div>
                 <div class="product_meta">
