@@ -1,5 +1,6 @@
 ﻿{% extends 'products/base.html' %}
 {% load static %}
+{% load humanize %}
 <!doctype html>
 <html class="no-js" lang="zxx">
 
@@ -129,7 +130,7 @@
 										<div class="product__content content--center">
 											<h4><a href="single-product.html">{{ product.name }}</a></h4>
 											<ul class="prize d-flex">
-												<li>{{ product.price }}원</li>
+												<li>{{ product.price | intcomma }}원</li>
 												<!-- <li class="old_prize">$35.00</li> -->
 											</ul>
 											<div class="action">
