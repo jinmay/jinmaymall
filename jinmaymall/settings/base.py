@@ -140,5 +140,10 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'jinmaymall', 'static'),
 ]
 
+# Media files
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 # accounts app
 LOGIN_REDIRECT_URL = '/'
