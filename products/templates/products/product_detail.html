@@ -30,93 +30,10 @@
           <div class="row">
             <div class="col-lg-6 col-12">
               <div class="wn__fotorama__wrapper">
-                <style>
-                  .fotorama1563084855921 .fotorama__nav--thumbs .fotorama__nav__frame {
-                    padding: 2px;
-                    height: 64px
-                  }
-
-                  .fotorama1563084855921 .fotorama__thumb-border {
-                    height: 60px;
-                    border-width: 2px;
-                    margin-top: 2px
-                  }
-                </style>
-                <div class="fotorama--hidden"></div>
-                <div class="fotorama wn__fotorama__action fotorama1563084855921" data-nav="thumbs">
-                  <div class="fotorama__wrap fotorama__wrap--css3 fotorama__wrap--slide fotorama__wrap--toggle-arrows"
-                    style="width: 450px; min-width: 0px; max-width: 100%;">
-                    <div class="fotorama__stage" style="width: 450px; height: 565px;">
-                      <div class="fotorama__stage__shaft"
-                        style="transition-duration: 0ms; transform: translate3d(0px, 0px, 0px); width: 450px; margin-left: 0px;">
-                        <div class="fotorama__stage__frame fotorama__loaded fotorama__loaded--img fotorama__active"
-                          style="left: 0px;"><img src="images/product/1.jpg"
-                            style="width: 450px; height: 565px; left: 0px; top: 0px;" class="fotorama__img"></div>
-                        <div class="fotorama__stage__frame fotorama__loaded fotorama__loaded--img" style="left: 452px;">
-                          <img src="images/product/2.jpg" style="width: 450px; height: 565px; left: 0px; top: 0px;"
-                            class="fotorama__img"></div>
-                      </div>
-                      <div class="fotorama__arr fotorama__arr--prev fotorama__arr--disabled" tabindex="-1" role="button"
-                        disabled="disabled"></div>
-                      <div class="fotorama__arr fotorama__arr--next" tabindex="0" role="button"></div>
-                      <div class="fotorama__video-close"></div>
-                    </div>
-                    <div class="fotorama__nav-wrap">
-                      <div class="fotorama__nav fotorama__nav--thumbs fotorama__shadows--right" style="width: 450px;">
-                        <div class="fotorama__nav__shaft fotorama__grab"
-                          style="transition-duration: 0ms; transform: translate3d(0px, 0px, 0px);">
-                          <div class="fotorama__thumb-border"
-                            style="transition-duration: 0ms; transform: translate3d(0px, 0px, 0px); width: 60px;"></div>
-                          <div class="fotorama__nav__frame fotorama__nav__frame--thumb fotorama__active" tabindex="0"
-                            role="button" style="width: 64px;">
-                            <div class="fotorama__thumb fotorama__loaded fotorama__loaded--img"><img
-                                src="images/product/1.jpg" class="fotorama__img"
-                                style="width: 64px; height: 80.3556px; left: 0px; top: -8.17778px;"></div>
-                          </div>
-                          <div class="fotorama__nav__frame fotorama__nav__frame--thumb" tabindex="0" role="button"
-                            style="width: 64px;">
-                            <div class="fotorama__thumb fotorama__loaded fotorama__loaded--img"><img
-                                src="images/product/2.jpg" class="fotorama__img"
-                                style="width: 64px; height: 80.3556px; left: 0px; top: -8.17778px;"></div>
-                          </div>
-                          <div class="fotorama__nav__frame fotorama__nav__frame--thumb" tabindex="0" role="button"
-                            style="width: 64px;">
-                            <div class="fotorama__thumb fotorama__loaded fotorama__loaded--img"><img
-                                src="images/product/3.jpg" class="fotorama__img"
-                                style="width: 64px; height: 80.3556px; left: 0px; top: -8.17778px;"></div>
-                          </div>
-                          <div class="fotorama__nav__frame fotorama__nav__frame--thumb" tabindex="0" role="button"
-                            style="width: 64px;">
-                            <div class="fotorama__thumb fotorama__loaded fotorama__loaded--img"><img
-                                src="images/product/4.jpg" class="fotorama__img"
-                                style="width: 64px; height: 80.3556px; left: 0px; top: -8.17778px;"></div>
-                          </div>
-                          <div class="fotorama__nav__frame fotorama__nav__frame--thumb" tabindex="0" role="button"
-                            style="width: 64px;">
-                            <div class="fotorama__thumb fotorama__loaded fotorama__loaded--img"><img
-                                src="images/product/5.jpg" class="fotorama__img"
-                                style="width: 64px; height: 80.3556px; left: 0px; top: -8.17778px;"></div>
-                          </div>
-                          <div class="fotorama__nav__frame fotorama__nav__frame--thumb" tabindex="0" role="button"
-                            style="width: 64px;">
-                            <div class="fotorama__thumb fotorama__loaded fotorama__loaded--img"><img
-                                src="images/product/6.jpg" class="fotorama__img"
-                                style="width: 64px; height: 80.3556px; left: 0px; top: -8.17778px;"></div>
-                          </div>
-                          <div class="fotorama__nav__frame fotorama__nav__frame--thumb" tabindex="0" role="button"
-                            style="width: 64px;">
-                            <div class="fotorama__thumb fotorama__loaded fotorama__loaded--img"><img
-                                src="images/product/7.jpg" class="fotorama__img"
-                                style="width: 64px; height: 80.3556px; left: 0px; top: -8.17778px;"></div>
-                          </div>
-                          <div class="fotorama__nav__frame fotorama__nav__frame--thumb" tabindex="0" role="button"
-                            style="width: 64px;">
-                            <div class="fotorama__thumb"></div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                <div class="fotorama wn__fotorama__action" data-nav="thumbs">
+                  {% for image in product.images.all %}
+                  <a href=""><img src="{{ image.image.url }}" alt=""></a>
+                  {% endfor %}
                 </div>
               </div>
             </div>
@@ -145,7 +62,8 @@
                     <button class="tocart" type="submit" title="Add to Cart">Add to Cart</button>
                   </div>
                   <div class="product-addto-links clearfix">
-                    <a class="wishlist" href="{% url 'products:toggle_like' product.id %}" {% if like %}style="background-color: #e59285; background-position: 100% center;"{% endif %}></a>
+                    <a class="wishlist" href="{% url 'products:toggle_like' product.id %}"
+                      {% if like %}style="background-color: #e59285; background-position: 100% center;" {% endif %}></a>
                     <!-- <a class="compare" href="#"></a> -->
                   </div>
                 </div>

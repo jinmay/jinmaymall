@@ -27,6 +27,11 @@ class ProductManager(models.Manager):
             qs = Product.objects.all()
         return qs
 
+class ProductImage(models.Model):
+    product = models.ForeignKey('Product', on_delete=models.CASCADE, related_name='images')
+    image = models.ImageField()
+    is_representative = models.BooleanField()
+
 class Product(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     name = models.CharField(max_length=128)
@@ -48,6 +53,10 @@ class Product(models.Model):
     @property
     def like_count(self):
         return self.like.count()
+
+    def get_image(self, product):
+        image = ProductImage.objects.get(product=product, is_representative=True)
+        return image
 
 class Like(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
