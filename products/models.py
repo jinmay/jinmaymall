@@ -54,8 +54,9 @@ class Product(models.Model):
     def like_count(self):
         return self.like.count()
 
-    def get_image(self, product):
-        image = ProductImage.objects.get(product=product, is_representative=True)
+    @property
+    def get_image(self):
+        image = ProductImage.objects.get(product=self, is_representative=True)
         return image
 
 class Like(models.Model):

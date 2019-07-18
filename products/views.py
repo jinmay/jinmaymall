@@ -28,17 +28,14 @@ def product_detail(request, product_id):
     product_total_count = Product.objects.count()
     try:
         like = product.like_set.get(user=request.user)
-        repr_image = product.get_image(product)
     except:
         like = None
-        repr_image = None
 
     return render(request, 'products/product_detail.html', {
         'product': product,
         'category_list': category_list,
         'product_total_count': product_total_count,
         'like': like,
-        'repr_image': repr_image,
     })
 
 @login_required
