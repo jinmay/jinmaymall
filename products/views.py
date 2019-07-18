@@ -26,10 +26,7 @@ def product_detail(request, product_id):
     product = get_object_or_404(Product, pk=product_id)
     category_list = Category.objects.all()
     product_total_count = Product.objects.count()
-    try:
-        like = product.like_set.get(user=request.user)
-    except:
-        like = None
+    like = product.get_like(request.user)
 
     return render(request, 'products/product_detail.html', {
         'product': product,

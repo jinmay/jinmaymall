@@ -57,7 +57,14 @@ class Product(models.Model):
     @property
     def get_image(self):
         image = ProductImage.objects.get(product=self, is_representative=True)
-        return image
+        return image 
+
+    def get_like(self, user):
+        try:
+            like = Like.objects.get(user=user, product=self)
+        except Like.DoesNotExist:
+            like = None
+        return like
 
 class Like(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
