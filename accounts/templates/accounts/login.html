@@ -27,7 +27,7 @@
         <div class="my__account__wrapper">
           <h3 class="account__title">Login</h3>
           {% for error in form.non_field_errors %}
-          <p>
+          <p style="color: red;">
             {{ error }}
           </p>
           {% endfor %}
@@ -38,14 +38,14 @@
                 <label for="{{ form.username.id_for_label }}">{{ form.username.label }} <span>*</span></label>
                 <input type="{{ form.username.field.widget.input_type }}" id="{{ form.username.id_for_label }}" name="{{ form.username.name }}" >
                 {% for error in form.username.errors %}
-                <p>{{ error }}</p>
+                  <p style="color: red;">{{ error }}</p>
                 {% endfor %}
               </div>
               <div class="input__box">
                 <label for="{{ form.password.id_for_label }}">{{ form.password.label }} <span>*</span></label>
                 <input type="{{ form.password.field.widget.input_type }}" id="{{ form.password.id_for_label }} " name="{{ form.password.name }}">
                 {% for error in form.password.errors %}
-                <p>{{ error }}</p>
+                  <p style="color: red;">{{ error }}</p>
                 {% endfor %}
               </div>
               <div class="form__btn">
