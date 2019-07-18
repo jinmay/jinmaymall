@@ -111,9 +111,9 @@
 								<div class="product product__style--3 col-lg-4 col-md-4 col-sm-6 col-12">
 									<div class="product__thumb">
 										<a class="first__img" href="{{ product.get_absolute_url }}"><img
-												src="{% static 'images/books/1.jpg' %}" alt="product image"></a>
+												src="{{ product.images.first.image.url }}" alt="product image"></a>
 										<a class="second__img animation1" href="{{ product.get_absolute_url }}"><img
-												src="images/books/2.jpg" alt="product image"></a>
+												src="{{ product.images.first.image.url }}" alt="product image"></a>
 										<!-- <div class="hot__box">
 												<span class="hot-label">BEST SALLER</span>
 											</div> -->
@@ -133,7 +133,7 @@
 													<li><a class="compare" href="{% url 'products:toggle_like' product.id %}"><i
 																class="bi bi-heart-beat"></i></a></li>
 													<li><a data-toggle="modal" title="Quick View" class="quickview modal-view detail-link"
-															href="#productmodal"><i class="bi bi-search"></i></a></li>
+															href="#productmodal-{{ product.id }}"><i class="bi bi-search"></i></a></li>
 												</ul>
 											</div>
 										</div>
@@ -170,7 +170,8 @@
 	<!-- QUICKVIEW PRODUCT -->
 	<div id="quickview-wrapper">
 		<!-- Modal -->
-		<div class="modal fade" id="productmodal" tabindex="-1" role="dialog">
+		{% for product in product_list %}
+		<div class="modal fade" id="productmodal-{{ product.id }}" tabindex="-1" role="dialog">
 			<div class="modal-dialog modal__container" role="document">
 				<div class="modal-content">
 					<div class="modal-header modal__header">
@@ -182,12 +183,12 @@
 							<!-- Start product images -->
 							<div class="product-images">
 								<div class="main-image images">
-									<img alt="big images" src="images/product/big-img/1.jpg">
+									<img alt="big images" src="{{ product.images.first.image.url }}">
 								</div>
 							</div>
 							<!-- end product images -->
 							<div class="product-info">
-								<h1>Simple Fabric Bags</h1>
+								<h1>{{ product.name }}</h1>
 								<div class="rating__and__review">
 									<ul class="rating">
 										<li><span class="ti-star"></span></li>
@@ -202,13 +203,12 @@
 								</div>
 								<div class="price-box-3">
 									<div class="s-price-box">
-										<span class="new-price">$17.20</span>
-										<span class="old-price">$45.00</span>
+										<span class="new-price">{{ product.price | intcomma }}원</span>
+										<!-- <span class="old-price">$45.00</span> -->
 									</div>
 								</div>
 								<div class="quick-desc">
-									Designed for simplicity and made from high quality materials. Its sleek geometry and material
-									combinations creates a modern look.
+									{{ product.description }}
 								</div>
 								<div class="select__color">
 									<h2>Select color</h2>
@@ -245,6 +245,7 @@
 				</div>
 			</div>
 		</div>
+		{% endfor %}
 		<!-- Modal End -->
 	</div>
 	<!-- END QUICKVIEW PRODUCT -->
