@@ -1,5 +1,6 @@
 from django.contrib import admin
 from .models import Category, Product, Like, ProductImage
+from .forms import ProductImageInlineFormset
 
 
 @admin.register(Category)
@@ -8,6 +9,7 @@ class CategoryAdmin(admin.ModelAdmin):
 
 class ProductImageInline(admin.StackedInline):
     model = ProductImage
+    formset = ProductImageInlineFormset
     extra = 3
 
 @admin.register(Product)
