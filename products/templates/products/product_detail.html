@@ -315,6 +315,10 @@
       },
       success: function (res) {
         let is_existed = res.is_existed;
+        let is_login = res.is_login;
+
+        // 로그인하지 않은 유저의 요청일 경우 js로 리다이렉트를 해줍니다
+        if (!is_login) { window.location.href = "{% url 'login' %}" }
         
         if (is_existed) {
           $('.like').css('background-color', '#e59285');
