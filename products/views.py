@@ -1,6 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic.list import ListView
 from django.contrib.auth.decorators import login_required
+from rest_framework import status
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
 from .models import Category, Product, Like
 
 
@@ -35,14 +38,20 @@ def product_detail(request, product_id):
         'like': like,
     })
 
+@api_view(['POST'])
 @login_required
 def toggle_like(request, product_id):
     user = request.user
     product = get_object_or_404(Product, pk=product_id)
+    data = {
+        'is_existed': None
+    }
     try:
         product_like = Like.objects.get(user=user, product=product)
         product_like.delete()
+        data['is_existed'] = False
     except Like.DoesNotExist:
         Like.objects.create(user=user, product=product)
+        data['is_existed'] = True
     
-    return redirect(product)
+    return Response(data=data, status=status.HTTP_200_OK)

@@ -1,4 +1,5 @@
 {% extends 'products/base.html' %}
+{% load static %}
 {% load humanize %}
 
 {% block content %}
@@ -62,7 +63,7 @@
                     <button class="tocart" type="submit" title="Add to Cart">Add to Cart</button>
                   </div>
                   <div class="product-addto-links clearfix">
-                    <a class="wishlist" href="{% url 'products:toggle_like' product.id %}"
+                    <a class="wishlist like" href="{% url 'products:toggle_like' product.id %}" value="{{ product.id }}"
                       {% if like %}style="background-color: #e59285; background-position: 100% center;" {% endif %}></a>
                     <!-- <a class="compare" href="#"></a> -->
                   </div>
@@ -298,3 +299,37 @@
 </div>
 
 {% endblock content %}
+
+{% block extra_js %}
+<script src="{% static 'products/js/ajax.js' %}"></script>
+<script>
+  $('.like').click(function (e) {
+    e.preventDefault();
+    let product_id = $(this).attr('value');
+    let url = "{% url 'products:toggle_like' 0 %}".replace('0', product_id);
+    $.ajax({
+      type: "POST",
+      url: url,
+      data: {
+        product_id: product_id
+      },
+      success: function (res) {
+        let is_existed = res.is_existed;
+        
+        if (is_existed) {
+          $('.like').css('background-color', '#e59285');
+          $('.like').css('background-position-x', '100%');
+          $('.like').css('background-position-y', 'center');
+        } else {
+          $('.like').css('background', '');
+          $('.like').css('background-position-x', '');
+          $('.like').css('background-position-y', '');
+        }
+      },
+      error: function (request, status, error) {
+        console.log(error);
+      },
+    });
+  })
+</script>
+{% endblock extra_js %}
