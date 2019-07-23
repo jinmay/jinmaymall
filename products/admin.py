@@ -17,6 +17,7 @@ class ProductImageInline(admin.StackedInline):
 class ProductAdmin(SummernoteModelAdmin):
     readonly_fields = ("hit", )
     list_display = ('name', 'price', 'is_active', )
+    list_editable = ('is_active', )
     summernote_fields = ('long_desc', )
     inlines = [ProductImageInline]
 
