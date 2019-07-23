@@ -10,8 +10,10 @@ def index(request):
 urlpatterns = [
     path('', index, name='root'),
     path('admin/', admin.site.urls),
+    path('summernote/', include('django_summernote.urls')),
     path('accounts/', include('accounts.urls')),
     path('products/', include('products.urls')),
 ]
 
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

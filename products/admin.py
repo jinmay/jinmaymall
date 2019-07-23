@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django_summernote.admin import SummernoteModelAdmin
 from .models import Category, Product, Like, ProductImage
 from .forms import ProductImageInlineFormset
 
@@ -13,9 +14,10 @@ class ProductImageInline(admin.StackedInline):
     extra = 3
 
 @admin.register(Product)
-class ProductAdmin(admin.ModelAdmin):
+class ProductAdmin(SummernoteModelAdmin):
     readonly_fields = ("hit", )
     list_display = ('name', 'price', 'is_active', )
+    summernote_fields = ('long_desc', )
     inlines = [ProductImageInline]
 
 @admin.register(Like)

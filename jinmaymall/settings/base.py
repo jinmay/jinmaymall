@@ -47,7 +47,7 @@ ADDED_APPS = [
 ]
 
 THIRD_APPS = [
-    
+    'django_summernote',
 ]
 
 INSTALLED_APPS = DEFAULT_APPS + ADDED_APPS + THIRD_APPS
