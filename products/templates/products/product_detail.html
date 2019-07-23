@@ -54,7 +54,7 @@
                   <span>{{ product.price | intcomma }}원</span>
                 </div>
                 <div class="product__overview">
-                  {{ product.description }}
+                  {{ product.short_desc }}
                 </div>
                 <div class="box-tocart d-flex">
                   <span>Qty</span>
@@ -112,19 +112,9 @@
             <!-- Start Single Tab Content -->
             <div class="pro__tab_label tab-pane fade show active" id="nav-details" role="tabpanel">
               <div class="description__attribute">
-                <p>Ideal for cold-weather training or work outdoors, the Chaz Hoodie promises superior warmth with every
-                  wear. Thick material blocks out the wind as ribbed cuffs and bottom band seal in body heat.Ideal for
-                  cold-weather training or work outdoors, the Chaz Hoodie promises superior warmth with every wear.
-                  Thick material blocks out the wind as ribbed cuffs and bottom band seal in body heat.Ideal for
-                  cold-weather training or work outdoors, the Chaz Hoodie promises superior warmth with every wear.
-                  Thick material blocks out the wind as ribbed cuffs and bottom band seal in body heat.Ideal for
-                  cold-weather training or work outdoors, the Chaz Hoodie promises superior warmth with every wear.
-                  Thick material blocks out the wind as ribbed cuffs and bottom band seal in body heat.</p>
-                <ul>
-                  <li>• Two-tone gray heather hoodie.</li>
-                  <li>• Drawstring-adjustable hood. </li>
-                  <li>• Machine wash/dry.</li>
-                </ul>
+                <p>
+                  {{ product.long_desc }}
+                </p>
               </div>
             </div>
             <!-- End Single Tab Content -->
