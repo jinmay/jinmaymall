@@ -17,14 +17,14 @@ class Category(models.Model):
 
     @property
     def product_count(self):
-        return self.product_set.count()
+        return self.product_set.filter(is_active=True).count()
 
 class ProductManager(models.Manager):
     def filter_by_category(self, category_id):
         if category_id:
-            qs = Product.objects.filter(category_id=category_id)
+            qs = Product.objects.filter(category_id=category_id, is_active=True)
         else:
-            qs = Product.objects.all()
+            qs = Product.objects.filter(is_active=True)
         return qs
 
 class ProductImage(models.Model):
