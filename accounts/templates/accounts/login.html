@@ -43,7 +43,7 @@
               </div>
               <div class="input__box">
                 <label for="{{ form.password.id_for_label }}">{{ form.password.label }} <span>*</span></label>
-                <input type="{{ form.password.field.widget.input_type }}" id="{{ form.password.id_for_label }} " name="{{ form.password.name }}">
+                <input type="{{ form.password.field.widget.input_type }}" id="{{ form.password.id_for_label }}" name="{{ form.password.name }}">
                 {% for error in form.password.errors %}
                   <p style="color: red;">{{ error }}</p>
                 {% endfor %}
