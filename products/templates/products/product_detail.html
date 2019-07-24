@@ -41,7 +41,7 @@
             <div class="col-lg-6 col-12">
               <div class="product__info__main">
                 <h1>{{ product.name }}</h1>
-                <div class="product-reviews-summary d-flex">
+                <!-- <div class="product-reviews-summary d-flex">
                   <ul class="rating-summary d-flex">
                     <li><i class="zmdi zmdi-star-outline"></i></li>
                     <li><i class="zmdi zmdi-star-outline"></i></li>
@@ -49,7 +49,7 @@
                     <li class="off"><i class="zmdi zmdi-star-outline"></i></li>
                     <li class="off"><i class="zmdi zmdi-star-outline"></i></li>
                   </ul>
-                </div>
+                </div> -->
                 <div class="price-box">
                   <span>{{ product.price | intcomma }}원</span>
                 </div>
@@ -69,12 +69,11 @@
                   </div>
                 </div>
                 <div class="product_meta">
-                  <span class="posted_in">Categories:
-                    <a href="#">Adventure</a>,
-                    <a href="#">Kids' Music</a>
+                  <span class="posted_in">카테고리 -
+                    <a href="{% url 'products:product_list' %}?category={{ product.category.id }}">{{ product.category }}</a>
                   </span>
                 </div>
-                <div class="product-share">
+                <!-- <div class="product-share">
                   <ul>
                     <li class="categories-title">Share :</li>
                     <li>
@@ -98,7 +97,7 @@
                       </a>
                     </li>
                   </ul>
-                </div>
+                </div> -->
               </div>
             </div>
           </div>
