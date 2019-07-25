@@ -1,11 +1,13 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.views.decorators.http import require_POST
 from products.models import Product
 from .cart import Cart
 from .forms import CartForm
 
 
+@require_POST
 def cart_add(request, product_id):
-    print('cart_add')
+    print('func: cart_add')
     cart = Cart(request)
     product = get_object_or_404(Product, pk=product_id)
     form = CartForm(request.POST)
@@ -16,12 +18,14 @@ def cart_add(request, product_id):
         return redirect('cart:cart_detail')
 
 def cart_remove(request, product_id):
-    print('cart_remove')
+    print('func: cart_remove')
     cart = Cart(request)
     cart.remove(product_id)
     return redirect('cart:cart_detail')
 
 def cart_detail(request):
+    print('func: cart_detail')
     cart = Cart(request)
-    print(cart.cart)
+    for product in cart:
+        product['update_quantity_form'] = CartForm(initial={'quantity': product['quantity'], 'update': True})
     return render(request, 'cart/cart.html')

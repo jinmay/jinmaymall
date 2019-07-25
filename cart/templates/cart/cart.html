@@ -47,9 +47,23 @@
 									<td class="product-thumbnail"><a href="#"><img src="images/product/sm-3/1.jpg" alt="product img"></a></td>
 									<td class="product-name"><a href="#">{{ item.product.name }}</a></td>
 									<td class="product-price"><span class="amount">{{ item.price | intcomma }}원</span></td>
-									<td class="product-quantity"><input type="number" value="{{ item.quantity }}"></td>
+									<td class="product-quantity">
+										<form action=""></form>
+										<form action="{% url 'cart:cart_add' item.product.id %}" method="POST">
+											{% csrf_token %}
+											{% for field in item.update_quantity_form.hidden_fields %}
+												{{ field }}
+											{% endfor %}
+											<select name="{{ item.update_quantity_form.quantity.name }}" id="{{ item.update_quantity_form.quantity.id_for_label }}">
+												{% for option in item.update_quantity_form.quantity %}
+													{{ option }}
+												{% endfor %}
+											</select>
+											<button class="btn btn-link btn-sm" style="color: black;">변경</button>
+										</form>
+									</td>
 									<td class="product-subtotal">{{ item.total_price | intcomma }}원</td>
-									<td class="product-remove"><a href="{% url 'cart:cart_remove' item.product.id %}">X</a></td>
+									<td class="product-remove"><a href="{% url 'cart:cart_remove' item.product.id %}">삭제</a></td>
 								</tr>
 								{% endfor %}
 							</tbody>
