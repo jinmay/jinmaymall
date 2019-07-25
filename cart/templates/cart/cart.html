@@ -45,7 +45,7 @@
 								{% for item in cart %}
 								<tr>
 									<td class="product-thumbnail"><a href="#"><img src="{{ item.product.get_image.image.url }}" alt="product img"></a></td>
-									<td class="product-name"><a href="#">{{ item.product.name }}</a></td>
+									<td class="product-name"><a href="{{ item.product.get_absolute_url }}">{{ item.product.name }}</a></td>
 									<td class="product-price"><span class="amount">{{ item.price | intcomma }}원</span></td>
 									<td class="product-quantity">
 										<form action=""></form>
