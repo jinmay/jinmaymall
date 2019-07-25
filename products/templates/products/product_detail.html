@@ -57,18 +57,30 @@
                 <div class="product__overview">
                   {{ product.short_desc }}
                 </div>
+                
                 <div class="box-tocart d-flex">
-                  <span>Qty</span>
-                  <input id="qty" class="input-text qty" name="qty" min="1" value="1" title="Qty" type="number">
-                  <div class="addtocart__actions">
-                    <button class="tocart" type="submit" title="Add to Cart">Add to Cart</button>
-                  </div>
+                  <form action="{% url 'cart:cart_add' product.id %}" method="POST" class="d-flex">
+                    {% csrf_token %}
+                    {% for field in cart_form.hidden_fields %}
+                      {{ field }}
+                    {% endfor %}
+                    <span for="{{ cart_form.quantity.id_for_label }}">수량</span>
+                    <select id="{{ cart_form.quantity.id_for_label }}" class="input-text qty" name="{{ cart_form.quantity.name }}">
+                      {% for option in cart_form.quantity %}
+                      {{ option }}
+                      {% endfor %}
+                    </select>
+                    <div class="addtocart__actions">
+                      <button class="tocart" type="submit" title="Add to Cart">장바구니에 추가</button>
+                    </div>
+                  </form>
                   <div class="product-addto-links clearfix">
                     <a class="wishlist like" href="{% url 'products:toggle_like' product.id %}" value="{{ product.id }}"
                       {% if like %}style="background-color: #e59285; background-position: 100% center;" {% endif %}></a>
                     <!-- <a class="compare" href="#"></a> -->
                   </div>
                 </div>
+
                 <div class="product_meta">
                   <span class="posted_in">카테고리 -
                     <a href="{% url 'products:product_list' %}?category={{ product.category.id }}">{{ product.category }}</a>

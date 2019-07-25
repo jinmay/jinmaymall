@@ -26,6 +26,12 @@ class Cart:
         self.session[settings.CART_SESSION_KEY] = self.cart
         self.session.modified = True
 
+    def remove(self, product_id):
+        target_id = str(product_id)
+        if target_id in self.cart:
+            del self.cart[target_id]
+            self.save()
+
     def __iter__(self):
         product_id_list = self.cart.keys()
         product_list = Product.objects.filter(id__in=product_id_list)
@@ -33,17 +39,6 @@ class Cart:
             self.cart[str(product.id)]['product'] = product
             # yield (product.id, self.cart[str(product.id)])
 
-        for item in self.cart.values():
-            item['total_price'] = item['price'] * item['quantity']
-            yield item
-
-    # def __iter__(self):
-    #     product_ids = self.cart.keys()
-    #     products = Item.objects.filter(hash_id__in=product_ids)
-    #     for product in products:
-    #         self.cart[str(product.id)]['product'] = product
-
-    #     for item in self.cart.values():
-    #         item['price'] = Decimal(item['price'])
-    #         item['total_price'] = item['price'] * item['quantity']
-    #         yield item
+        for product in self.cart.values():
+            product['total_price'] = product['price'] * product['quantity']
+            yield product
