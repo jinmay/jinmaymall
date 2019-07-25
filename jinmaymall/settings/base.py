@@ -44,6 +44,7 @@ ADDED_APPS = [
     'user.apps.UserConfig',
     'accounts.apps.AccountsConfig',
     'products.apps.ProductsConfig',
+    'cart.apps.CartConfig',
 ]
 
 THIRD_APPS = [
@@ -79,6 +80,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'cart.context_processors.cart',
             ],
         },
     },
@@ -147,3 +149,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # accounts app
 LOGIN_REDIRECT_URL = '/'
+
+# settings for cart app
+CART_SESSION_KEY = 'cart'
