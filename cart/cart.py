@@ -11,6 +11,17 @@ class Cart:
             cart = self.session[settings.CART_SESSION_KEY] = {}
         self.cart = cart
 
+    def __iter__(self):
+        product_id_list = self.cart.keys()
+        product_list = Product.objects.filter(id__in=product_id_list)
+        for product in product_list:
+            self.cart[str(product.id)]['product'] = product
+            # yield (product.id, self.cart[str(product.id)])
+
+        for product in self.cart.values():
+            product['total_price'] = product['price'] * product['quantity']
+            yield product
+
     def add(self, product, quantity=1, update=False):
         print('add CART')
         product_id = str(product.id)
@@ -32,13 +43,5 @@ class Cart:
             del self.cart[target_id]
             self.save()
 
-    def __iter__(self):
-        product_id_list = self.cart.keys()
-        product_list = Product.objects.filter(id__in=product_id_list)
-        for product in product_list:
-            self.cart[str(product.id)]['product'] = product
-            # yield (product.id, self.cart[str(product.id)])
-
-        for product in self.cart.values():
-            product['total_price'] = product['price'] * product['quantity']
-            yield product
+    def get_total_price(self):
+        return sum(item['price'] * item['quantity'] for item in self.cart.values())
