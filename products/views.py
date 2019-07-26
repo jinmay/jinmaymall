@@ -18,11 +18,15 @@ class ProductListView(ListView):
         context = super().get_context_data(**kwargs)
         context['category_list'] = Category.objects.all()
         context['product_total_count'] = Product.objects.filter(is_active=True).count()
+        context['q'] = self.request.GET.get('q', "")
         return context
 
     def get_queryset(self):
+        q = self.request.GET.get('q', None)
         category_id = self.request.GET.get('category', None)
         qs = Product.objects.filter_by_category(category_id)
+        if q:
+            qs = qs.filter(name__icontains=q)
         return qs
 
 product_list = ProductListView.as_view()
