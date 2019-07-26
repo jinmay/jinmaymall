@@ -111,8 +111,20 @@
 								</div>
 								<!-- End Single Product -->
 								{% endfor %}
-
 							</div>
+
+							<form class="form-inline" action="" method="GET">
+								<div class="input-group">
+									<input type="hidden" name="category" value="{{ category_id }}">
+									<input type="text" class="form-control" placeholder="결과 내 검색" size="30" name="qq" value="{{ qq }}">
+									<div class="input-group-append">
+										<button type="submit" class="btn btn-outline-secondary">
+											<i class="fa fa-search fa-1x" aria-hidden="true"></i>
+										</button>
+									</div>
+								</div>
+							</form>
+
 							<ul class="wn__pagination">
 								{% if is_paginated %}
 									{% if page_obj.has_previous %}

@@ -19,14 +19,19 @@ class ProductListView(ListView):
         context['category_list'] = Category.objects.all()
         context['product_total_count'] = Product.objects.filter(is_active=True).count()
         context['q'] = self.request.GET.get('q', "")
+        context['qq'] = self.request.GET.get('qq', "")
+        context['category_id'] = self.request.GET.get('category', None)
         return context
 
     def get_queryset(self):
         q = self.request.GET.get('q', None)
+        qq = self.request.GET.get('qq', None)
         category_id = self.request.GET.get('category', None)
         qs = Product.objects.filter_by_category(category_id)
         if q:
             qs = qs.filter(name__icontains=q)
+        elif qq:
+            qs = qs.filter(name__icontains=qq, category_id=category_id)
         return qs
 
 product_list = ProductListView.as_view()
