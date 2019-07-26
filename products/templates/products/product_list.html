@@ -39,6 +39,21 @@
 				<!-- //Left nav -->
 
 				<div class="col-lg-9 col-12 order-1 order-lg-2">
+					<div class="row mb-2">
+						<div class="col-lg-12">
+							<form class="form-inline pull-right" action="" method="GET">
+								<div class="input-group">
+									<input type="hidden" name="category" value="{{ category_id }}">
+									<input type="text" class="form-control" placeholder="결과 내 검색" size="30" name="qq" value="{{ qq }}">
+									<div class="input-group-append">
+										<button type="submit" class="btn btn-outline-secondary">
+											<i class="fa fa-search fa-1x" aria-hidden="true"></i>
+										</button>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
 					<!-- Middle top -->
 					<div class="row">
 						<div class="col-lg-12">
@@ -112,18 +127,6 @@
 								<!-- End Single Product -->
 								{% endfor %}
 							</div>
-
-							<form class="form-inline" action="" method="GET">
-								<div class="input-group">
-									<input type="hidden" name="category" value="{{ category_id }}">
-									<input type="text" class="form-control" placeholder="결과 내 검색" size="30" name="qq" value="{{ qq }}">
-									<div class="input-group-append">
-										<button type="submit" class="btn btn-outline-secondary">
-											<i class="fa fa-search fa-1x" aria-hidden="true"></i>
-										</button>
-									</div>
-								</div>
-							</form>
 
 							{% include 'products/_pagination.html' %}
 						</div>
