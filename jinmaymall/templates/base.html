@@ -78,7 +78,7 @@
             <!-- 장바구니 시작 -->
             <li class="shopcart">
               <a class="cartbox_active" href="#">
-                <!-- <span class="product_qun">3</span> -->
+                <span class="product_qun">{{ cart | length }}</span>
               </a>
               <!-- 팝업 장바구니 시작 -->
               {% include '_popup_cart.html' %}
@@ -207,6 +207,7 @@
           targetData.remove();
           $('#total_count').html(res.total_count);
           $('#total_price').html(numberWithCommas(res.get_total_price));
+          $('.product_qun').html(res.total_count)
         }
       });
     });
