@@ -87,6 +87,9 @@
         </div>
         <div class="col-md-6 col-sm-6 col-6 col-lg-2">
           <ul class="header__sidebar__right d-flex justify-content-end align-items-center">
+            {% if request.user.is_authenticated %}
+            <li class="mr-3" style="color: white;">반갑습니다,<br>{{ request.user.username }} 고객님</li>
+            {% endif %}
             <!-- 장바구니 시작 -->
             <li class="shopcart">
               <a class="cartbox_active" href="#">
