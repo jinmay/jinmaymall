@@ -1,5 +1,4 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.views.decorators.http import require_POST
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
@@ -8,7 +7,7 @@ from .cart import Cart
 from .forms import CartForm
 
 
-@require_POST
+@api_view(['POST'])
 def cart_add(request, product_id):
     print('func: cart_add')
     cart = Cart(request)
@@ -18,7 +17,7 @@ def cart_add(request, product_id):
         cd_quantity = form.cleaned_data['quantity']
         cd_update = form.cleaned_data['update']
         cart.add(product=product, quantity=cd_quantity, update=cd_update)
-        return redirect('cart:cart_detail')
+        return redirect(product)
 
 @api_view(['GET'])
 def cart_remove(request, product_id):
