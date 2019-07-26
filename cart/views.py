@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.http import HttpResponse
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
@@ -17,6 +18,8 @@ def cart_add(request, product_id):
         cd_quantity = form.cleaned_data['quantity']
         cd_update = form.cleaned_data['update']
         cart.add(product=product, quantity=cd_quantity, update=cd_update)
+        if request.is_ajax():
+            return Response(status=status.HTTP_201_CREATED)
         return redirect(product)
 
 @api_view(['GET'])

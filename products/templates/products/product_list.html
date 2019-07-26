@@ -104,7 +104,7 @@
 										<div class="action">
 											<div class="actions_inner">
 												<ul class="add_to_links">
-													<li><a class="cart" href="cart.html"><i class="bi bi-shopping-bag4"></i></a></li>
+													<li><a class="cart external-cart" href="cart.html" data-id="{{ product.id }}"><i class="bi bi-shopping-bag4"></i></a></li>
 													<!-- <li><i class="wishlist" href="wishlist.html"><i class="bi bi-shopping-cart-full"></i></i></li> -->
 													<li><a class="compare" href="{% url 'products:toggle_like' product.id %}" value="{{ product.id }}">
 														<i class="bi bi-heart-beat"></i></a></li>
@@ -177,5 +177,27 @@
 			},
 		});
 	})
+
+	$('.external-cart').click(function(e) {
+		e.preventDefault();
+		let product_id = e.currentTarget.dataset.id;
+		let url = "{% url 'cart:cart_add' 0 %}".replace('0', product_id);
+
+		$.ajax({
+			type: "POST",
+			url: url,
+			data: {
+				quantity: 1
+			},
+			success: function (res) {
+				console.log(res);
+				alert('장바구니에 추가했습니다');
+				location.reload();
+			},
+			error: function(res, status, err) {
+				console.log(err);
+			}
+		})
+	});
 </script>
 {% endblock extra_js %}
