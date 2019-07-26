@@ -1,5 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.http import require_POST
+from rest_framework import status
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
 from products.models import Product
 from .cart import Cart
 from .forms import CartForm
@@ -17,10 +20,17 @@ def cart_add(request, product_id):
         cart.add(product=product, quantity=cd_quantity, update=cd_update)
         return redirect('cart:cart_detail')
 
+@api_view(['GET'])
 def cart_remove(request, product_id):
-    print('func: cart_remove')
+    print('func: cart_remove')    
     cart = Cart(request)
     cart.remove(product_id)
+    if request.is_ajax():
+        data = {
+            'get_total_price': cart.get_total_price(),
+            'total_count': len(cart),
+        }
+        return Response(data=data)
     return redirect('cart:cart_detail')
 
 def cart_detail(request):

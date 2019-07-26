@@ -1,0 +1,44 @@
+{% load humanize %}
+
+<div class="block-minicart minicart__active">
+  <div class="minicart-content-wrapper">
+    <div class="micart__close">
+      <span>close</span>
+    </div>
+    <div class="items-total d-flex justify-content-between">
+      <span>총 수량 : <span id="total_count">{{ cart | length | intcomma }}</span>개</span>
+      <span>총 주문금액</span>
+    </div>
+    <div class="total_amount text-right">
+      <span><span id="total_price">{{ cart.get_total_price | intcomma }}</span>원</span>
+    </div>
+    <div class="mini_action checkout">
+      <a class="checkout__btn" href="cart.html">결제하기</a>
+    </div>
+    <div class="single__items">
+      <div class="miniproduct">
+        {% for item in cart %}
+        <div class="item01 d-flex mb-3" id="product-{{ item.product.id }}">
+          <div class="thumb">
+            <a href=""><img src="{{ item.product.get_image.image.url }}" alt="product images"></a>
+          </div>
+          <div class="content">
+            <h6><a href="{{ item.product.get_absolute_url }}">{{ item.product.name }}</a></h6>
+            <span class="prize">{{ item.total_price | intcomma }}원</span>
+            <div class="product_prize d-flex justify-content-between">
+              <span class="qun">수량: {{ item.quantity }}</span>
+              <ul class="d-flex justify-content-end">
+                <!-- <li><a href="#"><i class="zmdi zmdi-settings"></i></a></li> -->
+                <li><a href="" class="remove-btn" data-target-rm="{{ item.product.id }}"><i class="zmdi zmdi-delete"></i></a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    <div class="mini_action cart">
+      <a class="cart__btn" href="{% url 'cart:cart_detail' %}">장바구니</a>
+    </div>
+  </div>
+</div>

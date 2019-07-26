@@ -22,6 +22,9 @@ class Cart:
             product['total_price'] = product['price'] * product['quantity']
             yield product
 
+    def __len__(self):
+        return sum(item['quantity'] for item in self.cart.values())
+
     def add(self, product, quantity=1, update=False):
         print('add CART')
         product_id = str(product.id)

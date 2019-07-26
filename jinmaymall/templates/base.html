@@ -1,4 +1,6 @@
 {% load static %}
+{% load humanize %}
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -78,80 +80,9 @@
               <a class="cartbox_active" href="#">
                 <!-- <span class="product_qun">3</span> -->
               </a>
-              <!-- Start Shopping Cart -->
-              <div class="block-minicart minicart__active">
-                <div class="minicart-content-wrapper">
-                  <div class="micart__close">
-                    <span>close</span>
-                  </div>
-                  <div class="items-total d-flex justify-content-between">
-                    <span>3 items</span>
-                    <span>Cart Subtotal</span>
-                  </div>
-                  <div class="total_amount text-right">
-                    <span>$66.00</span>
-                  </div>
-                  <div class="mini_action checkout">
-                    <a class="checkout__btn" href="cart.html">Go to Checkout</a>
-                  </div>
-                  <div class="single__items">
-                    <div class="miniproduct">
-                      <div class="item01 d-flex">
-                        <div class="thumb">
-                          <a href="product-details.html"><img src="images/product/sm-img/1.jpg" alt="product images"></a>
-                        </div>
-                        <div class="content">
-                          <h6><a href="product-details.html">Voyage Yoga Bag</a></h6>
-                          <span class="prize">$30.00</span>
-                          <div class="product_prize d-flex justify-content-between">
-                            <span class="qun">Qty: 01</span>
-                            <ul class="d-flex justify-content-end">
-                              <li><a href="#"><i class="zmdi zmdi-settings"></i></a></li>
-                              <li><a href="#"><i class="zmdi zmdi-delete"></i></a></li>
-                            </ul>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="item01 d-flex mt--20">
-                        <div class="thumb">
-                          <a href="product-details.html"><img src="images/product/sm-img/3.jpg" alt="product images"></a>
-                        </div>
-                        <div class="content">
-                          <h6><a href="product-details.html">Impulse Duffle</a></h6>
-                          <span class="prize">$40.00</span>
-                          <div class="product_prize d-flex justify-content-between">
-                            <span class="qun">Qty: 03</span>
-                            <ul class="d-flex justify-content-end">
-                              <li><a href="#"><i class="zmdi zmdi-settings"></i></a></li>
-                              <li><a href="#"><i class="zmdi zmdi-delete"></i></a></li>
-                            </ul>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="item01 d-flex mt--20">
-                        <div class="thumb">
-                          <a href="product-details.html"><img src="images/product/sm-img/2.jpg" alt="product images"></a>
-                        </div>
-                        <div class="content">
-                          <h6><a href="product-details.html">Compete Track Tote</a></h6>
-                          <span class="prize">$40.00</span>
-                          <div class="product_prize d-flex justify-content-between">
-                            <span class="qun">Qty: 03</span>
-                            <ul class="d-flex justify-content-end">
-                              <li><a href="#"><i class="zmdi zmdi-settings"></i></a></li>
-                              <li><a href="#"><i class="zmdi zmdi-delete"></i></a></li>
-                            </ul>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="mini_action cart">
-                    <a class="cart__btn" href="cart.html">View and edit cart</a>
-                  </div>
-                </div>
-              </div>
-              <!-- End Shopping Cart -->
+              <!-- 팝업 장바구니 시작 -->
+              {% include '_popup_cart.html' %}
+              <!-- 팝업 장바구니 끝 -->
             </li>
             <!-- 장바구니 끝 -->
 
@@ -255,6 +186,31 @@
   <script src="{% static 'js/popper.min.js' %}"></script>
   <script src="{% static 'js/plugins.js' %}"></script>
   <script src="{% static 'js/active.js' %}"></script>
+  <script>
+    // js에서 intcomma를 해주기 위한 함수입니다
+    function numberWithCommas(x) {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      }
+
+    $('.remove-btn').click(function (e) {
+      e.preventDefault();
+      let product_id = e.currentTarget.dataset.targetRm;
+      let url = "{% url 'cart:cart_remove' 0 %}".replace("0", product_id);
+      let targetData = $("#product-" + product_id);
+
+      $.get({
+        url: url,
+        data: {
+          product_id: product_id
+        },
+        success: function (res) {
+          targetData.remove();
+          $('#total_count').html(res.total_count);
+          $('#total_price').html(numberWithCommas(res.get_total_price));
+        }
+      });
+    });
+  </script>
   {% block extra_js %}
   {% endblock extra_js %}
 </body>
