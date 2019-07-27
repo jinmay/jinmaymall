@@ -10,7 +10,6 @@ from .forms import CartForm
 
 @api_view(['POST'])
 def cart_add(request, product_id):
-    print('func: cart_add')
     cart = Cart(request)
     product = get_object_or_404(Product, pk=product_id)
     form = CartForm(request.POST)
@@ -24,7 +23,6 @@ def cart_add(request, product_id):
 
 @api_view(['GET'])
 def cart_remove(request, product_id):
-    print('func: cart_remove')    
     cart = Cart(request)
     cart.remove(product_id)
     if request.is_ajax():
@@ -36,7 +34,6 @@ def cart_remove(request, product_id):
     return redirect('cart:cart_detail')
 
 def cart_detail(request):
-    print('func: cart_detail')
     cart = Cart(request)
     for product in cart:
         product['update_quantity_form'] = CartForm(initial={'quantity': product['quantity'], 'update': True})
