@@ -14,12 +14,15 @@ def cart_add(request, product_id):
     product = get_object_or_404(Product, pk=product_id)
     form = CartForm(request.POST)
     if form.is_valid():
+        is_detail = request.POST.get('is_detail', None)
         cd_quantity = form.cleaned_data['quantity']
         cd_update = form.cleaned_data['update']
         cart.add(product=product, quantity=cd_quantity, update=cd_update)
         if request.is_ajax():
             return Response(status=status.HTTP_201_CREATED)
-        return redirect(product)
+        if is_detail is not None:
+            return redirect(product)
+        return redirect('cart:cart_detail')
 
 @api_view(['GET'])
 def cart_remove(request, product_id):
