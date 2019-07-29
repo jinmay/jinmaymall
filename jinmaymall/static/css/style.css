@@ -2458,7 +2458,7 @@ nav.menu {
 	  opacity: 0;
 	  position: absolute;
 	  right: 0;
-	  transform: translateY(-50%);
+	  transform: translateY(-35%);
 	  visibility: hidden;
 	  z-index: 1;
 	  transition:.4s;
