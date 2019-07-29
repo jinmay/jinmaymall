@@ -1,6 +1,7 @@
 {% extends 'products/base.html' %}
 {% load static %}
 {% load humanize %}
+{% load imagekit %}
 
 {% block content %}
 <html class="no-js" lang="zxx">
@@ -40,7 +41,7 @@
                     <thead>
                       <tr>
                         <th class="product-remove"></th>
-                        <th class="product-thumbnail"></th>
+                        <th class="product-thumbnail text-center">사진</th>
                         <th class="product-name"><span class="nobr">상품</span></th>
                         <th class="product-price"><span class="nobr">가격</span></th>
                         <!-- <th class="product-stock-stauts"><span class="nobr"> Stock Status </span></th> -->
@@ -49,9 +50,10 @@
                     </thead>
                     <tbody>
                       {% for like in user.like_set.all %}
+                      {% thumbnail "150x150" like.product.get_image.image as thumb %}
                       <tr id="remove-{{ like.product_id }}" data-id="{{ like.product_id }}">
                         <td class="product-remove remove-like"><a href="#">×</a></td>
-                        <td class="product-thumbnail"><a href="#"><img src="{{ like.product.get_image.image.url }}"
+                        <td class="product-thumbnail text-center"><a href="#"><img src="{{ thumb.url }}"
                               alt=""></a></td>
                         <td class="product-name"><a href="#">{{ like.product }}</a></td>
                         <td class="product-price"><span class="amount">{{ like.product.price | intcomma }}원</span></td>
