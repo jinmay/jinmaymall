@@ -90,6 +90,13 @@
             {% if request.user.is_authenticated %}
             <li class="mr-3" style="color: white;">반갑습니다,<br>{{ request.user.username }} 고객님</li>
             {% endif %}
+
+            {% if request.user.is_authenticated %}
+            <!-- 위시리스트 시작 -->
+            <li class="wishlist"><a href="{% url 'wishlist' %}"></a></li>
+            <!-- 위시리스트 끝 -->
+            {% endif %}
+
             <!-- 장바구니 시작 -->
             <li class="shopcart">
               <a class="cartbox_active" href="#">
@@ -201,6 +208,7 @@
   <script src="{% static 'js/popper.min.js' %}"></script>
   <script src="{% static 'js/plugins.js' %}"></script>
   <script src="{% static 'js/active.js' %}"></script>
+  <script src="{% static 'products/js/ajax.js' %}"></script>
   <script>
     // js에서 intcomma를 해주기 위한 함수입니다
     function numberWithCommas(x) {

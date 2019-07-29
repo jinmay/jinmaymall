@@ -1,0 +1,121 @@
+{% extends 'products/base.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block content %}
+<html class="no-js" lang="zxx">
+
+<body>
+  <!-- Main wrapper -->
+  <div class="wrapper" id="wrapper">
+
+    <!-- Start Bradcaump area -->
+    <div class="ht__bradcaump__area bg-image--5">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="bradcaump__inner text-center">
+              <h2 class="bradcaump-title">Wishlist</h2>
+              <nav class="bradcaump-content">
+                <a class="breadcrumb_item" href="index.html">Home</a>
+                <span class="brd-separetor">/</span>
+                <span class="breadcrumb_item active">Wishlist</span>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End Bradcaump area -->
+
+    <!-- cart-main-area start -->
+    <div class="wishlist-area section-padding--lg bg__white">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="wishlist-content">
+              <form action="#">
+                <div class="wishlist-table wnro__table table-responsive">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th class="product-remove"></th>
+                        <th class="product-thumbnail"></th>
+                        <th class="product-name"><span class="nobr">상품</span></th>
+                        <th class="product-price"><span class="nobr">가격</span></th>
+                        <!-- <th class="product-stock-stauts"><span class="nobr"> Stock Status </span></th> -->
+                        <th class="product-add-to-cart"></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for like in user.like_set.all %}
+                      <tr id="remove-{{ like.product_id }}" data-id="{{ like.product_id }}">
+                        <td class="product-remove remove-like"><a href="#">×</a></td>
+                        <td class="product-thumbnail"><a href="#"><img src="{{ like.product.get_image.image.url }}"
+                              alt=""></a></td>
+                        <td class="product-name"><a href="#">{{ like.product }}</a></td>
+                        <td class="product-price"><span class="amount">{{ like.product.price | intcomma }}원</span></td>
+                        <!-- <td class="product-stock-status"><span class="wishlist-in-stock">In Stock</span></td> -->
+                        <td class="product-add-to-cart add-cart"><a href="#"> 장바구니 추가</a></td>
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- cart-main-area end -->
+
+  </div>
+  <!-- //Main wrapper -->
+</body>
+
+</html>
+{% endblock content %}
+
+{% block extra_js %}
+<script src="{% static 'products/js/ajax.js' %}"></script>
+<script>
+  $('.remove-like').click(function (e) {
+    e.preventDefault();
+    let target_id = e.currentTarget.parentElement.dataset.id;
+    let url = "{% url 'products:toggle_like' 0 %}".replace("0", target_id);
+    let remove_tr = $("#remove-" + target_id)
+
+    $.post({
+      url: url,
+      success: function (res) {
+        remove_tr.remove();
+      },
+      error: function (request, status, err) {
+        console.log(err);
+      },
+    })
+  })
+
+  $('.add-cart').click(function (e) {
+    e.preventDefault();
+    let target_id = e.currentTarget.parentElement.dataset.id;
+    let url = "{% url 'cart:cart_add' 0 %}".replace("0", target_id);
+    let remove_tr = $("#remove-" + target_id)
+
+    $.post({
+      url: url,
+      data: {
+        quantity: 1
+      },
+      success: function(res) {
+        alert('장바구니에 추가했습니다!')
+        remove_tr.remove();
+      },
+      error: function(err) {
+        console.log(err);
+      },
+    })
+  })
+</script>
+{% endblock extra_js %}
