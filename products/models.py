@@ -90,3 +90,13 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Answer(models.Model):
+    qna = models.OneToOneField(Post, on_delete=models.CASCADE)
+    content = models.TextField()
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return "{}의 답변".format(self.qna_id)

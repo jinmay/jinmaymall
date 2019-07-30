@@ -1,5 +1,5 @@
 from django import forms
-from .models import Post
+from .models import Post, Answer
 
 class ProductImageInlineFormset(forms.models.BaseInlineFormSet):
 
@@ -19,7 +19,13 @@ class ProductImageInlineFormset(forms.models.BaseInlineFormSet):
 
 class QnaForm(forms.ModelForm):
     
-
     class Meta:
         model = Post
         fields = ('title', 'content', )
+
+
+class AnswerForm(forms.ModelForm):
+
+    class Meta:
+        model = Answer
+        fields = ('content', )

@@ -8,7 +8,13 @@
         <div class="acc-header" role="tab" id="headingOne">
           <h5>
             <a data-toggle="collapse" href="#collapse-{{ post.id }}" role="button" aria-expanded="false"
-              aria-controls="collapseOne" class="collapsed">{{ post.title }}<span class="pull-right">{{ post.author.username }}</span></a>
+              aria-controls="collapseOne" class="collapsed">
+              {{ post.title }}
+              <button type="button" class="btn btn-outline-info btn-sm" data-toggle="modal" data-target="#answer-{{ post.id }}">
+                답변하기
+              </button>
+              <span class="pull-right">{{ post.author.username }}</span>
+            </a>
           </h5>
         </div>
         <div id="collapse-{{ post.id }}" class="collapse" role="tabpanel" aria-labelledby="headingOne" data-parent="#accordion">
@@ -16,6 +22,7 @@
           <div class="card-body">{{ post.content }}</div>
         </div>
       </div>
+      {% include 'products/_answer_modal.html' %}
       {% endfor %}
     </div>
 
@@ -36,6 +43,4 @@
       </div>
     </form>
   </div>
-
 </div>
-<!-- End Single Tab Content -->
