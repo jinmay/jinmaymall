@@ -56,6 +56,8 @@ def product_detail(request, product_id):
 
     if request.user.is_staff:
         answer_form = AnswerForm()
+    else:
+        answer_form = None
 
     if request.method == 'POST':
         form = QnaForm(request.POST)
@@ -117,11 +119,7 @@ def answer(request, qna_id):
     product = qna.product
     if request.method == 'POST':
         form = AnswerForm(request.POST)
-        print('not yet')
-        print(form.errors)
-        print(form)
         if form.is_valid():
-            print('valid')
             answer = form.save(commit=False)
             answer.qna = qna
             answer.save()

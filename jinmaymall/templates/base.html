@@ -122,9 +122,9 @@
                           <span><a href="{% url 'mypage' %}">My Account</a></span>
                           <span><a href="{% url 'cart:cart_detail' %}">My Cart</a></span>
                           {% if user.is_authenticated %}
-                          <span><a href="{% url 'logout' %}">Log out</a></span>
+                          <span><a href="{% url 'logout' %}?next={{ request.path }}">Log out</a></span>
                           {% else %}
-                          <span><a href="{% url 'login' %}">Log In</a></span>
+                          <span><a href="{% url 'login' %}?next={{ request.path }}">Log In</a></span>
                           <span><a href="{% url 'signup' %}">Create An Account</a></span>
                           {% endif %}
                         </div>

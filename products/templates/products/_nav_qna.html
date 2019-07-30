@@ -10,9 +10,11 @@
             <a data-toggle="collapse" href="#collapse-{{ post.id }}" role="button" aria-expanded="false"
               aria-controls="collapseOne" class="collapsed">
               {{ post.title }}
+              {% if request.user.is_staff %}
               <button type="button" class="btn btn-outline-info btn-sm" data-toggle="modal" data-target="#answer-{{ post.id }}">
                 답변하기
               </button>
+              {% endif %}
               <span class="pull-right">{{ post.author.username }}</span>
             </a>
           </h5>
@@ -26,6 +28,7 @@
       {% endfor %}
     </div>
 
+    {% if request.user.is_authenticated %}
     <form action="" method="post">
       {% csrf_token %}
       <div class="review_form_field">
@@ -42,5 +45,6 @@
         </div>
       </div>
     </form>
+    {% endif %}
   </div>
 </div>
