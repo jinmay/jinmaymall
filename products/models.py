@@ -73,3 +73,20 @@ class Like(models.Model):
 
     def __str__(self):
         return "{} - {}".format(self.user, self.product)
+
+
+class Post(models.Model):
+    title = models.CharField(max_length=50)
+    content = models.TextField()
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    is_finished = models.BooleanField(default=False)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+
+    class Meta:
+        ordering = ('-id', )
+
+    def __str__(self):
+        return self.title

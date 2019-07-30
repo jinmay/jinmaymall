@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django_summernote.admin import SummernoteModelAdmin
-from .models import Category, Product, Like, ProductImage
+from .models import Category, Product, Like, ProductImage, Post
 from .forms import ProductImageInlineFormset
 
 
@@ -27,4 +27,9 @@ class LikeAdmin(admin.ModelAdmin):
 
 @admin.register(ProductImage)
 class ProductImageAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(Post)
+class QnaAdmin(admin.ModelAdmin):
     pass

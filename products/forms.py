@@ -1,4 +1,5 @@
 from django import forms
+from .models import Post
 
 class ProductImageInlineFormset(forms.models.BaseInlineFormSet):
 
@@ -15,3 +16,10 @@ class ProductImageInlineFormset(forms.models.BaseInlineFormSet):
         if count == 0:
             raise forms.ValidationError('대표 사진이 없습니다. 하나의 사진으르 대표사진으로 지정해주세요.')
             
+
+class QnaForm(forms.ModelForm):
+    
+
+    class Meta:
+        model = Post
+        fields = ('title', 'content', )
