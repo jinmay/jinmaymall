@@ -149,6 +149,7 @@
 <script>
 	$('.compare').click(function (e) {
 		e.preventDefault();
+		let current_target = $(e.currentTarget);
 		let product_id = $(this).attr('value');
 		let url = "{% url 'products:toggle_like' 0 %}".replace('0', product_id);
 		$.ajax({
@@ -165,13 +166,13 @@
 				if (!is_login) { window.location.href = "{% url 'login' %}" }
 
 				if (is_existed) {
-					$('.compare').css('background-color', '#e59285');
-					$('.compare').css('background-position-x', '100%');
-					$('.compare').css('background-position-y', 'center');
+					current_target.css('background-color', '#e59285');
+					current_target.css('background-position-x', '100%');
+					current_target.css('background-position-y', 'center');
 				} else {
-					$('.compare').css('background', '');
-					$('.compare').css('background-position-x', '');
-					$('.compare').css('background-position-y', '');
+					current_target.css('background', '');
+					current_target.css('background-position-x', '');
+					current_target.css('background-position-y', '');
 				}
 			},
 			error: function (request, status, error) {
