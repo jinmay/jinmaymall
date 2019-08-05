@@ -3,6 +3,10 @@
 {% load static %}
 {% load humanize %}
 
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'products/css/starrr.css' %}">
+{% endblock extra_css %}
+
 {% block content %}
 
 <!-- Start Bradcaump area -->
@@ -142,6 +146,7 @@
 
 {% block extra_js %}
 <script src="{% static 'products/js/ajax.js' %}"></script>
+<script src="{% static 'products/js/starrr.js' %}"></script>
 <script>
   $(".like").click(function (e) {
     e.preventDefault();
@@ -183,4 +188,20 @@
     alert('장바구니에 추가되었습니다')
   });
 </script>
+<script>
+  let rating_input = $('#id_rating');
+  $('#input_starrr').starrr({
+    rating: rating_input.val(),
+    change: function(e, value) {
+      rating_input.val(value).trigger('input');
+    }
+  })
+</script>
+{% for review in product.review_set.all %}
+<script>
+  $('#review-{{ review.id }}.starrr').starrr({
+    rating: "{{ review.rating }}"
+  })
+</script>
+{% endfor %}
 {% endblock extra_js %}

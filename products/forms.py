@@ -1,5 +1,5 @@
 from django import forms
-from .models import Post, Answer
+from .models import Post, Answer, Review
 
 class ProductImageInlineFormset(forms.models.BaseInlineFormSet):
 
@@ -29,3 +29,10 @@ class AnswerForm(forms.ModelForm):
     class Meta:
         model = Answer
         fields = ('content', )
+
+    
+class ReviewForm(forms.ModelForm):
+
+    class Meta:
+        model = Review
+        fields = ('title', 'content', 'rating', )

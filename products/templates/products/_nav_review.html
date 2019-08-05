@@ -1,8 +1,6 @@
 <!-- Start Single Tab Content -->
 <div class="pro__tab_label tab-pane fade" id="nav-review" role="tabpanel">
-  <div class="review__attribute">
-    <h1>Customer Reviews</h1>
-    <h2>Hastech</h2>
+  <!-- <div class="review__attribute">
     <div class="review__ratings__type d-flex">
       <div class="review-ratings">
         <div class="rating-summary d-flex">
@@ -43,61 +41,54 @@
         <p>Posted on 11/6/2018</p>
       </div>
     </div>
+  </div> -->
+  
+  <div id="accordion" class="wn_accordion" role="tablist">
+    {% for review in product.review_set.all %}
+    <div class="card">
+      <div class="acc-header" role="tab" id="headingOne">
+        <h5>
+          <a data-toggle="collapse" href="#collapse-{{ review.id }}" role="button" aria-expanded="false"
+            aria-controls="collapseOne" class="collapsed">
+            {{ review.title }}
+            <input type="hidden" id="review-{{ review.id }}" value="{{ review.rating }}">
+            <span class="pull-right">{{ review.user.username }}</span>
+          </a>
+        </h5>
+      </div>
+      <div id="collapse-{{ review.id }}" class="collapse" role="tabpanel" aria-labelledby="headingOne"
+        data-parent="#accordion">
+        <div class="starrr" id="review-{{ review.id }}"></div>
+        <span class="card-text pull-right pr-2">{{ review.updated }}</span>
+        <div class="card-body">{{ review.content }}</div>
+      </div>
+    </div>
+    {% endfor %}
   </div>
-  <div class="review-fieldset">
-    <h2>You're reviewing:</h2>
-    <h3>Chaz Kangeroo Hoodie</h3>
-    <div class="review-field-ratings">
-      <div class="product-review-table">
-        <div class="review-field-rating d-flex">
-          <span>Quality</span>
-          <ul class="rating d-flex">
-            <li class="off"><i class="zmdi zmdi-star"></i></li>
-            <li class="off"><i class="zmdi zmdi-star"></i></li>
-            <li class="off"><i class="zmdi zmdi-star"></i></li>
-            <li class="off"><i class="zmdi zmdi-star"></i></li>
-            <li class="off"><i class="zmdi zmdi-star"></i></li>
-          </ul>
+  
+  <div class="review-fieldset">    
+    <h3>리뷰를 남겨 주세요</h3>
+    <form action="{% url 'products:review' product.id %}" method="POST">
+      {% csrf_token %}
+      <div class="review_form_field">
+        <div class="input__box">
+          <span>제목</span>
+          <input id="{{ review_form.title.id_for_label }}" type="{{ review_form.title.field.widget.input_type }}" name="{{ review_form.title.name }}">
         </div>
-        <div class="review-field-rating d-flex">
-          <span>Price</span>
-          <ul class="rating d-flex">
-            <li class="off"><i class="zmdi zmdi-star"></i></li>
-            <li class="off"><i class="zmdi zmdi-star"></i></li>
-            <li class="off"><i class="zmdi zmdi-star"></i></li>
-            <li class="off"><i class="zmdi zmdi-star"></i></li>
-            <li class="off"><i class="zmdi zmdi-star"></i></li>
-          </ul>
+        <div class="input__box">
+          <span>만족도</span>
+          <div id="input_starrr" class="starrr"></div>
+          <input type="hidden" id="{{ review_form.rating.id_for_label }}" value="3" name="{{ review_form.rating.name }}">
         </div>
-        <div class="review-field-rating d-flex">
-          <span>Value</span>
-          <ul class="rating d-flex">
-            <li class="off"><i class="zmdi zmdi-star"></i></li>
-            <li class="off"><i class="zmdi zmdi-star"></i></li>
-            <li class="off"><i class="zmdi zmdi-star"></i></li>
-            <li class="off"><i class="zmdi zmdi-star"></i></li>
-            <li class="off"><i class="zmdi zmdi-star"></i></li>
-          </ul>
+        <div class="input__box">
+          <span>내용</span>
+          <textarea name="{{ review_form.content.name }}"></textarea>
+        </div>
+        <div class="review-form-actions" data-id="{{ product.id }}">
+          <button>리뷰 남기기</button>
         </div>
       </div>
-    </div>
-    <div class="review_form_field">
-      <div class="input__box">
-        <span>Nickname</span>
-        <input id="nickname_field" type="text" name="nickname">
-      </div>
-      <div class="input__box">
-        <span>Summary</span>
-        <input id="summery_field" type="text" name="summery">
-      </div>
-      <div class="input__box">
-        <span>Review</span>
-        <textarea name="review"></textarea>
-      </div>
-      <div class="review-form-actions">
-        <button>Submit Review</button>
-      </div>
-    </div>
+    </form>
   </div>
 </div>
 <!-- End Single Tab Content -->

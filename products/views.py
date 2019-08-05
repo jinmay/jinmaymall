@@ -8,7 +8,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from cart.forms import CartForm
 from .models import Category, Product, Like, Post
-from .forms import QnaForm, AnswerForm
+from .forms import QnaForm, AnswerForm, ReviewForm
 
 
 UserModel = get_user_model()
@@ -49,6 +49,7 @@ def product_detail(request, product_id):
     qna_list = Post.objects.filter(product=product)
     cart_form = CartForm()
     qnaform = QnaForm()
+    review_form = ReviewForm()
     try:
         like = product.get_like(request.user)
     except:
@@ -77,6 +78,7 @@ def product_detail(request, product_id):
         'qnaform': qnaform,
         'qna_list': qna_list,
         'answer_form': answer_form,
+        'review_form': review_form,
     })
 
 # 유저 객체가 AnonymousUser클래스의 인스턴스인지 확인 후
@@ -124,3 +126,16 @@ def answer(request, qna_id):
             answer.qna = qna
             answer.save()
             return redirect(product)
+
+def review(request, product_id):
+    product = get_object_or_404(Product, pk=product_id)
+    user = request.user
+    if request.method == 'POST':
+        form = ReviewForm(request.POST)
+        if form.is_valid():
+            review = form.save(commit=False)
+            review.product = product
+            review.user = user
+            review.save()
+            return redirect(product)
+        return redirect(product)

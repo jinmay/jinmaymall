@@ -100,3 +100,16 @@ class Answer(models.Model):
 
     def __str__(self):
         return "{}의 답변".format(self.qna_id)
+
+
+class Review(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    title = models.CharField(max_length=128)
+    content = models.TextField()
+    rating = models.PositiveSmallIntegerField()
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return "{} 상품의 리뷰".format(self.product)
