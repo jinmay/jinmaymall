@@ -7,7 +7,7 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from cart.forms import CartForm
-from .models import Category, Product, Like, Post
+from .models import Category, Product, Like, Post, Review
 from .forms import QnaForm, AnswerForm, ReviewForm
 
 
@@ -127,6 +127,13 @@ def answer(request, qna_id):
 def review(request, product_id):
     product = get_object_or_404(Product, pk=product_id)
     user = request.user
+
+    # 이미 작성한 리뷰가 있으면 리뷰를 생성하는 로직을 거치지 않고
+    # 현재의 상품으로 리다이렉트 합니다
+    review = Review.objects.filter(product=product, user=user)
+    if review:
+        return redirect(product)
+
     if request.method == 'POST':
         form = ReviewForm(request.POST)
         if form.is_valid():
