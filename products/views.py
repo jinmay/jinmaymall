@@ -109,12 +109,9 @@ def toggle_like(request, product_id):
     return Response(data=data, status=status.HTTP_200_OK)
 
 
+# 위시리스트
 def like_list(request):
-    user = request.user
-    context = {
-        'user': user,
-    }
-    return render(request, 'products/wishlist.html', context)
+    return render(request, 'products/wishlist.html')
 
 def answer(request, qna_id):
     qna = get_object_or_404(Post, pk=qna_id)

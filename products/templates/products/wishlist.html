@@ -39,6 +39,7 @@
                 <div class="wishlist-table wnro__table table-responsive">
                   <table>
                     <thead>
+                      {% if user.like_set.all %}
                       <tr>
                         <th class="product-remove"></th>
                         <th class="product-thumbnail text-center">사진</th>
@@ -47,6 +48,7 @@
                         <!-- <th class="product-stock-stauts"><span class="nobr"> Stock Status </span></th> -->
                         <th class="product-add-to-cart"></th>
                       </tr>
+                      {% endif %}
                     </thead>
                     <tbody>
                       {% for like in user.like_set.all %}
