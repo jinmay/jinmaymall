@@ -8,7 +8,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from cart.forms import CartForm
 from .models import Category, Product, Like, Post, Review
-from .forms import QnaForm, AnswerForm, ReviewForm
+from .forms import QnaForm, AnswerForm, ReviewForm, ReviewEditForm
 
 
 UserModel = get_user_model()
@@ -142,4 +142,25 @@ def review(request, product_id):
             review.user = user
             review.save()
             return redirect(product)
+        return redirect(product)
+
+# 리뷰 게시글 수정에 사용할 view 함수입니다
+def review_edit(request, product_id, review_id):
+    user = request.user
+    product = get_object_or_404(Product, pk=product_id)
+    review = get_object_or_404(Review, pk=review_id)
+
+    if request.method == 'POST':
+        form = ReviewEditForm(request.POST, instance=review)
+        print(form)
+        if form.is_valid():
+            print('valid')
+            edited_review = form.save(commit=False)
+            edited_review.title = review.title
+            edited_review.product = product
+            edited_review.user = user
+            edited_review.rating = review.rating
+            edited_review.save()
+            return redirect(product)
+        print('invalid')
         return redirect(product)
