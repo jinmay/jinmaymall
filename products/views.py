@@ -113,6 +113,7 @@ def toggle_like(request, product_id):
 def like_list(request):
     return render(request, 'products/wishlist.html')
 
+# QnA의 답변을 생성하는 함수입니다
 def answer(request, qna_id):
     qna = get_object_or_404(Post, pk=qna_id)
     product = qna.product
@@ -124,6 +125,7 @@ def answer(request, qna_id):
             answer.save()
             return redirect(product)
 
+# 새로운 리뷰 생성에 사용할 함수입니다
 def review(request, product_id):
     product = get_object_or_404(Product, pk=product_id)
     user = request.user
@@ -144,7 +146,7 @@ def review(request, product_id):
             return redirect(product)
         return redirect(product)
 
-# 리뷰 게시글 수정에 사용할 view 함수입니다
+# 리뷰 게시글 수정에 사용할 함수입니다
 def review_edit(request, product_id, review_id):
     user = request.user
     product = get_object_or_404(Product, pk=product_id)
