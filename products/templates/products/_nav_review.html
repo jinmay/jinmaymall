@@ -55,6 +55,9 @@
             <button type="button" class="btn btn-outline-info btn-sm" data-toggle="modal" data-target="#review-{{ review.id }}-modal">
               수정하기
             </button>
+            <button type="button" class="btn btn-outline-danger btn-sm" onclick="review_delete('{{ product.id }}', '{{ review.id }}');">
+              삭제하기
+            </button>
             {% endif %}
             <input type="hidden" id="review-{{ review.id }}" value="{{ review.rating }}">
             <span class="pull-right">{{ review.user.username }}</span>

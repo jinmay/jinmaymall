@@ -204,4 +204,21 @@
   })
 </script>
 {% endfor %}
+<script>
+// _nav_review.html 파일에서 사용
+// 리뷰를 삭제하기 위한 함수입니다
+function review_delete(product_id, review_id) {
+  let approval = confirm('정말 후기를 삭제하시겠습니까?')
+  if (approval) {
+    let url = "{% url 'products:review_delete' 0 1 %}".replace("0", product_id).replace("1", review_id);
+    $.get({
+      url: url,
+    }).done(function () {
+      location.reload();
+    })
+  } else {
+    location.reload();
+  }
+}
+</script>
 {% endblock extra_js %}

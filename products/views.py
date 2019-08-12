@@ -166,3 +166,11 @@ def review_edit(request, product_id, review_id):
             return redirect(product)
         print('invalid')
         return redirect(product)
+
+# 리뷰 게시글 삭제 함수
+@api_view(['GET'])
+def review_delete(request, product_id, review_id):
+    if request.is_ajax():
+        review = get_object_or_404(Review, pk=review_id, product_id=product_id, user=request.user)
+        review.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
